@@ -51,6 +51,13 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
  */
 jasmine.CATCH_EXCEPTIONS = true;
 
+/**
+ * By default suites and specs are ran in order they were written in the spec file.
+ * Set to true to run specs and suites in a random order.
+ *
+ */
+jasmine.RANDOM_RUN = false;
+
 jasmine.getGlobal = function() {
   function getGlobal() {
     return this;

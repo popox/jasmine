@@ -20,13 +20,26 @@ jasmine.Queue.prototype.addBefore = function(block, ensure) {
   this.ensured.unshift(ensure);
 };
 
+jasmine.Queue.prototype.addAfter = function(block, ensure) {
+    if (ensure === jasmine.undefined) {
+        ensure = false;
+    }
+
+    this.blocks.push(block);
+    this.ensured.push(ensure);
+};
+
 jasmine.Queue.prototype.add = function(block, ensure) {
   if (ensure === jasmine.undefined) {
     ensure = false;
   }
 
-  this.blocks.push(block);
-  this.ensured.push(ensure);
+  var ind = this.blocks.length;
+  if (jasmine.RANDOM_RUN) {
+    var ind = Math.floor(Math.random()*ind);
+  }
+  this.blocks.splice(ind,0,block);
+  this.ensured.splice(ind,0,ensure);
 };
 
 jasmine.Queue.prototype.insertNext = function(block, ensure) {

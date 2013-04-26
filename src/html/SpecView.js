@@ -47,7 +47,11 @@ jasmine.HtmlReporter.SpecView.prototype.refresh = function() {
 
 jasmine.HtmlReporter.SpecView.prototype.appendSummaryToSuiteDiv = function() {
   this.summary.className += ' ' + this.status();
-  this.appendToSummary(this.spec, this.summary);
+  if(jasmine.RANDOM_RUN) {
+    this.prependToSummary(this.spec, this.summary);
+  } else {
+    this.appendToSummary(this.spec, this.summary);
+  }
 };
 
 jasmine.HtmlReporter.SpecView.prototype.appendFailureDetail = function() {

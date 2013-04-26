@@ -51,6 +51,20 @@ jasmine.HtmlReporterHelpers.appendToSummary = function(child, childElement) {
   parentDiv.appendChild(childElement);
 };
 
+jasmine.HtmlReporterHelpers.prependToSummary = function(child, childElement) {
+    var parentDiv = this.dom.summary;
+    var parentSuite = (typeof child.parentSuite == 'undefined') ? 'suite' : 'parentSuite';
+    var parent = child[parentSuite];
+
+    if (parent) {
+        if (typeof this.views.suites[parent.id] == 'undefined') {
+            this.views.suites[parent.id] = new jasmine.HtmlReporter.SuiteView(parent, this.dom, this.views);
+        }
+        parentDiv = this.views.suites[parent.id].element;
+    }
+
+    parentDiv.insertBefore(childElement, parentDiv.firstChild.nextSibling);
+};
 
 jasmine.HtmlReporterHelpers.addHelpers = function(ctor) {
   for(var fn in jasmine.HtmlReporterHelpers) {
